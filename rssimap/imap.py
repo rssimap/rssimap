@@ -65,7 +65,8 @@ class Imap:
         entry_as_mail['From'] = "%s (%s) <noreply@pyrssimap.example.com>" % (sender, entry.author)
     entry_as_mail['To'] = '<nachrichten@pyrssimap.example.com>'
     entry_as_mail['Message-ID'] = "<%s>" % entry.msgid()
-    entry_as_mail['Date'] = formatdate(mktime(entry.updated))
+    if entry.updated is not None:
+        entry_as_mail['Date'] = formatdate(mktime(entry.updated))
     #entry_as_mail.set_payload("%s\n\n%s" % (entry.text, entry.url))
     entry_as_mail.set_charset(charset.Charset('UTF-8'))
     entry_as_mail.attach(MIMEText("%s\n\n%s\n\n%s".encode('utf-8') % (entry.url, entry.text, entry.url), 'plain', 'utf-8'))

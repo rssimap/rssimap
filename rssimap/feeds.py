@@ -28,6 +28,9 @@ import unittest
 import feedparser
 import hashlib
 import time
+import logging
+
+logger = logging.getLogger("rssimap")
 
 class Feed:
   
@@ -41,6 +44,7 @@ class Feed:
     self.feedparser_data = feedparser.parse(url)
     self.feed = self.feedparser_data['feed']
     for entry in self.feedparser_data['entries']:
+        logger.debug("working on entry %s" % (repr(entry)))
         content = entry.get('content', None)
         if content is not None:
             if len(content) > 0:
@@ -50,7 +54,7 @@ class Feed:
             if summary_detail is not None:
                 content = summary_detail['value']
         
-        self.entries.append(FeedEntry(entry.title, entry.get('link', ''), content,
+        self.entries.append(FeedEntry(entry.get('title', None), entry.get('link', ''), content,
             entry.get('updated_parsed', time.gmtime()), entry.get('author', None)))
     
 
