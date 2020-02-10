@@ -1,5 +1,5 @@
 """
-Copyright 2016 Jan <jan.rssimap.dev@gmail.com>
+Copyright 2020 Jan <jan.rssimap.dev@gmail.com>
 
 This file is part of rssimap.
 
@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with rssimap.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from __future__ import absolute_import
-
 from rssimap.main import run
 
-run()
+if __name__ == '__main__':
+    run()

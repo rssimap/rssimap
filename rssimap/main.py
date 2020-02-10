@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
 """
 rssimap.py
 
 Created by Jan on 2010-08-20.
-Copyright 2010 Jan <jan.rssimap.dev@gmail.com>
+Copyright 2020 Jan <jan.rssimap.dev@gmail.com>
 
 This file is part of rssimap.
 
@@ -22,14 +22,14 @@ You should have received a copy of the GNU General Public License
 along with rssimap.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import sys
 import argparse
 import logging
 import getpass
 
-from feeds import Feed
-from imap import Imap
-from feed_list import feeds
+from rssimap.feeds import Feed
+from rssimap.imap import Imap
+from rssimap.feed_list import feeds
+
 
 def run():
     parser = argparse.ArgumentParser(description='Read RSS feeds on any device with an IMAP client.')
@@ -54,5 +54,7 @@ def run():
         logger.debug("parsing feed %s" % feed_url)
         feed.parsefeed(feed_url)
 
+        logger.debug("sending feed entries to server")
         for entry in feed.entries:
+            logger.debug("storing entry %s", entry.title)
             server.store_feedentry(entry, feed_name, feed_name)
